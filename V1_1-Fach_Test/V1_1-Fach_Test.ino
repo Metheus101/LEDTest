@@ -7,6 +7,9 @@
 #define PWM_R 30
 #define PWM_G 100
 #define PWM_B 100
+
+#define Speed 10
+
 int PWM = 0;
 
 void setup() {
@@ -25,14 +28,14 @@ for(int a=0; a<255; a++)
 analogWrite(Pin_R,PWM);
 
 PWM++;
-delay (10);
+delay (Speed);
 }
 for(int a=0; a<255; a++)
 {
 analogWrite(Pin_R,PWM);
 
 PWM--;
-delay (10);
+delay (Speed);
 }
 analogWrite(Pin_R,0);
 analogWrite(Pin_G,0);
@@ -43,7 +46,7 @@ for(int a=0; a<255; a++)
 analogWrite(Pin_G,PWM);
 
 PWM++;
-delay (10);
+delay (Speed);
 }
 for(int a=0; a<255; a++)
 {
@@ -51,7 +54,7 @@ for(int a=0; a<255; a++)
 analogWrite(Pin_G,PWM);
 
 PWM--;
-delay (10);
+delay (Speed);
 }
 analogWrite(Pin_R,0);
 analogWrite(Pin_G,0);
@@ -60,14 +63,14 @@ for(int a=0; a<255; a++)
 {
 analogWrite(Pin_B,PWM);
 PWM++;
-delay (10);
+delay (Speed);
 }
 for(int a=0; a<255; a++)
 {
 
 analogWrite(Pin_B,PWM);
 PWM--;
-delay (10);
+delay (Speed);
 }
 analogWrite(Pin_R,0);
 analogWrite(Pin_G,0);
@@ -78,7 +81,7 @@ analogWrite(Pin_R,PWM);
 analogWrite(Pin_G,PWM);
 analogWrite(Pin_B,PWM);
 PWM++;
-delay (10);
+delay (Speed);
 }
 for(int a=0; a<255; a++)
 {
@@ -86,6 +89,6 @@ analogWrite(Pin_R,PWM);
 analogWrite(Pin_G,PWM);
 analogWrite(Pin_B,PWM);
 PWM--;
-delay (10);
+delay (Speed);
 }
 }
