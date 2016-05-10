@@ -4,11 +4,11 @@
 #define Pin_G 11
 #define Pin_B 3
 
-#define Speed 100
-#define Brightness 10 //0-255
+#define del_fade 100
+#define brightness 100 //0-255
 
 int PWM = 0;
-int PWM_R = Brightness;
+int PWM_R = 0;
 int PWM_G = 0;
 int PWM_B = 0;
 
@@ -17,34 +17,40 @@ pinMode (Pin_G, OUTPUT);
 pinMode (Pin_R, OUTPUT);
 pinMode (Pin_B, OUTPUT);
 
-analogWrite(Pin_R, Brightness);
-analogWrite(Pin_G,0);
-analogWrite(Pin_B,0);
 }
 
-void loop() {
-  for(int a=0; a<Brightness; a++){
+void fadeRGB(int delay_f, int bright){
+  
+  analogWrite(Pin_R, bright);
+  analogWrite(Pin_G,0);
+  analogWrite(Pin_B,0);
+
+  for(int a=0; a<bright; a++){
     analogWrite(Pin_R, PWM_R);
     analogWrite(Pin_G, PWM_G);
     analogWrite(Pin_B, PWM_B);
     PWM_R =PWM_R-1;
     PWM_G =PWM_G+1;
-    delay(Speed);
+    delay(delay_f);
   }
-  for(int a=0; a<Brightness; a++){
+  for(int a=0; a<bright; a++){
     analogWrite(Pin_R, PWM_R);
     analogWrite(Pin_G, PWM_G);
     analogWrite(Pin_B, PWM_B);
     PWM_G =PWM_G-1;
     PWM_B =PWM_B+1;
-    delay(Speed);
+    delay(delay_f);
   }
-  for(int a=0; a<Brightness; a++){
+  for(int a=0; a<bright; a++){
     analogWrite(Pin_R, PWM_R);
     analogWrite(Pin_G, PWM_G);
     analogWrite(Pin_B, PWM_B);
     PWM_B =PWM_B-1;
     PWM_R =PWM_R+1;
-    delay(Speed);
+    delay(delay_f);
   }
+}
+
+void loop() {
+fadeRGB(del_fade, brightness);
 }
