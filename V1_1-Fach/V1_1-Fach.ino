@@ -5,18 +5,24 @@
 #define Pin_B 3
 
 #define del_fade 100
-#define brightness 20 //0-255
+float brightness_percent = 30; //0%-100%
 
-int PWM = 0;
 int PWM_R = 0;
 int PWM_G = 0;
 int PWM_B = 0;
+
+int white_offset_R = 100;
+int white_offset_G = 10;
+int white_offset_B = 20;
+int brightness = 0;
 
 void setup() 
 {
 pinMode (Pin_G, OUTPUT);
 pinMode (Pin_R, OUTPUT);
 pinMode (Pin_B, OUTPUT);
+
+brightness=brightness_percent*2.55;
 
 }
 
@@ -62,9 +68,19 @@ void RGBfade(int delay_f, int bright)// |Delay| |Brightness|
   }
 }
 
+void RGBwhite(int bright)
+{
+  float r=bright*white_offset_R/100;
+  float g=bright*white_offset_G/100;
+  float b=bright*white_offset_B/100;
+  analogWrite(Pin_R, r);
+  analogWrite(Pin_G, g);
+  analogWrite(Pin_B, b);
+}
+
 void loop() 
 {
-RGBfade(del_fade, brightness);
+//RGBfade(del_fade, brightness);
 delay(1000);
 RGBset(brightness,0,0);
 delay(1000);
@@ -72,4 +88,6 @@ RGBset(0,brightness,0);
 delay(1000);
 RGBset(0,0,brightness);
 delay(1000);
+RGBwhite(brightness);
+delay(5000);
 }
