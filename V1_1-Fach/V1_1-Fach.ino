@@ -4,16 +4,17 @@
 #define Pin_G 11
 #define Pin_B 3
 
-#define del_fade 100
-float brightness_percent = 30; //0%-100%
+#define del_fade 10
+float brightness_percent = 100; //0%-100%
 
+int white_offset_R = 100;
+int white_offset_G = 40;
+int white_offset_B = 10;
+
+//--------------------Initialisierung----------------
 int PWM_R = 0;
 int PWM_G = 0;
 int PWM_B = 0;
-
-int white_offset_R = 100;
-int white_offset_G = 10;
-int white_offset_B = 20;
 int brightness = 0;
 
 void setup() 
@@ -78,16 +79,43 @@ void RGBwhite(int bright)
   analogWrite(Pin_B, b);
 }
 
+void RGBfadein (int delay_f,int r, int g, int b)
+//|Delay(gschwindikeit)| Endwert|R|G|B|
+{
+  int set_r = 0;
+  int set_g = 0;
+  int set_b = 0;
+
+  int is_r = 0;
+  int is_g = 0;
+  int is_b = 0;
+
+  while((set_r < r)||(set_g < g)||(set_b < b))
+  {
+    set_r++;
+    set_g++;
+    set_b++;
+    
+    if(set_r < r)
+    {
+      analogWrite(Pin_R, set_r);
+    }
+    if(set_g < g)
+    {
+      analogWrite(Pin_G, set_g);
+    }
+    if(set_b < b)
+    {
+      analogWrite(Pin_B, set_b);
+    }
+    delay(delay_f);
+  }
+}
+
 void loop() 
 {
-//RGBfade(del_fade, brightness);
+RGBfadein(10,255,0,10);
+RGBset(0,0,0);
 delay(1000);
-RGBset(brightness,0,0);
-delay(1000);
-RGBset(0,brightness,0);
-delay(1000);
-RGBset(0,0,brightness);
-delay(1000);
-RGBwhite(brightness);
-delay(5000);
+
 }
