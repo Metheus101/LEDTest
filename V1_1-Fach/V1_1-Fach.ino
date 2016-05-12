@@ -3,6 +3,10 @@
 #define Pin_R 6
 #define Pin_G 11
 #define Pin_B 3
+#define Pin_T1 13
+#define Pin_T2 16
+#define Pin_T3 17
+#define Pin_T4 19
 
 #define del_fade 10
 float brightness_percent = 100; //0%-100%
@@ -22,6 +26,10 @@ void setup()
 pinMode (Pin_G, OUTPUT);
 pinMode (Pin_R, OUTPUT);
 pinMode (Pin_B, OUTPUT);
+pinMode (Pin_T1, INPUT_PULLUP);
+pinMode (Pin_T2, INPUT_PULLUP);
+pinMode (Pin_T3, INPUT_PULLUP);
+pinMode (Pin_T4, INPUT_PULLUP);
 
 brightness=brightness_percent*2.55;
 
@@ -114,8 +122,9 @@ void RGBfadein (int delay_f,int r, int g, int b)
 
 void loop() 
 {
-RGBfadein(10,255,0,10);
-RGBset(0,0,0);
-delay(1000);
+RGBfade(10,255);
+delay(5000);
+RGBwhite(255);
+delay(2000);
 
 }
