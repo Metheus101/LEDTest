@@ -79,42 +79,41 @@ void RGBfade(int delay_f, int bright)// |Delay| |Brightness|
 
 void RGBwhite(int bright)
 {
-  float r=bright*white_offset_R/100;
-  float g=bright*white_offset_G/100;
-  float b=bright*white_offset_B/100;
-  analogWrite(Pin_R, r);
-  analogWrite(Pin_G, g);
-  analogWrite(Pin_B, b);
+  PWM_R=bright*white_offset_R/100;
+  PWM_G=bright*white_offset_G/100;
+  PWM_B=bright*white_offset_B/100;
+  analogWrite(Pin_R, PWM_R);
+  analogWrite(Pin_G, PWM_G);
+  analogWrite(Pin_B, PWM_B);
 }
 
 void RGBfadein (int delay_f,int r, int g, int b)
 //|Delay(gschwindikeit)| Endwert|R|G|B|
 {
-  int set_r = 0;
-  int set_g = 0;
-  int set_b = 0;
+  int PWM_R = 0;
+  int PWM_G = 0;
+  int PWM_B = 0;
 
   int is_r = 0;
   int is_g = 0;
   int is_b = 0;
 
-  while((set_r < r)||(set_g < g)||(set_b < b))
+  while((PWM_R < r)||(PWM_G < g)||(PWM_B < b))
   {
-    set_r++;
-    set_g++;
-    set_b++;
-    
-    if(set_r < r)
+    if(PWM_R < r)
     {
-      analogWrite(Pin_R, set_r);
+      PWM_R++;
+      analogWrite(Pin_R, PWM_R);
     }
-    if(set_g < g)
+    if(PWM_G < g)
     {
-      analogWrite(Pin_G, set_g);
+      PWM_G++;
+      analogWrite(Pin_G, PWM_G);
     }
-    if(set_b < b)
+    if(PWM_B < b)
     {
-      analogWrite(Pin_B, set_b);
+      PWM_B++;
+      analogWrite(Pin_B, PWM_B);
     }
     delay(delay_f);
   }
