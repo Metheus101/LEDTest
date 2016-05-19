@@ -4,9 +4,9 @@
 #define Pin_G 11
 #define Pin_B 3
 #define Pin_T1 13
-#define Pin_T2 16
-#define Pin_T3 17
-#define Pin_T4 19
+#define Pin_T2 A2
+#define Pin_T3 A3
+#define Pin_T4 A5
 
 #define del_fade 10
 float brightness_percent = 100; //0%-100%
@@ -36,6 +36,7 @@ brightness=brightness_percent*2.55;
 }
 
 void RGBset(int r, int g, int b)
+//  |Wert R| |Wert G| |Wert B|
 {
   PWM_R = r;
   PWM_G = g;
@@ -45,7 +46,8 @@ void RGBset(int r, int g, int b)
   analogWrite(Pin_B, b);
 }
 
-void RGBfade(int delay_f, int bright)// |Delay| |Brightness|
+void RGBfade(int delay_f, int bright)
+//  |Delay| |Brightness|
 {
   PWM_R = bright;
   PWM_G = 0;
@@ -81,6 +83,7 @@ void RGBfade(int delay_f, int bright)// |Delay| |Brightness|
 }
 
 void RGBwhite(int bright)
+//  |Brightness|
 {
   PWM_R=bright*white_offset_R/100;
   PWM_G=bright*white_offset_G/100;
@@ -91,7 +94,7 @@ void RGBwhite(int bright)
 }
 
 void RGBfadein (int delay_f,int r, int g, int b)
-//|Delay(gschwindikeit)| Endwert|R|G|B|
+//  |Delay(gschwindikeit)| Endwert|R|G|B|
 {
   if((PWM_R < r)||(PWM_G < g)||(PWM_B < b))
   {
@@ -118,7 +121,7 @@ void RGBfadein (int delay_f,int r, int g, int b)
 }
 
 void RGBfadeout (int delay_f,int r, int g, int b)
-//|Delay(gschwindikeit)| Endwert|R|G|B|
+//  |Delay(gschwindikeit)| Endwert|R|G|B|
 {
   if((PWM_R > r)||(PWM_G > g)||(PWM_B > b))
   {
@@ -144,10 +147,24 @@ void RGBfadeout (int delay_f,int r, int g, int b)
   }
 }
 
+int tast(int nummer)
+{
+  static int rueck = 0;
+  if (nummer == 1)
+  {
+    rueck=0;
+  }
+}
+
 void loop() 
 {
-RGBset(0,0,255);
-delay(1000);
-RGBfadeout(10,0,0,2);
-delay(1000);
+if(!digitalRead(Pin_T2))
+{
+  RGBset(255,0,0);
+}
+else
+{
+  RGBset (0,0,0);
+}
+delay(100);
 }
