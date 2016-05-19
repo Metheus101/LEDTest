@@ -37,6 +37,9 @@ brightness=brightness_percent*2.55;
 
 void RGBset(int r, int g, int b)
 {
+  PWM_R = r;
+  PWM_G = g;
+  PWM_B = b;
   analogWrite(Pin_R, r);
   analogWrite(Pin_G, g);
   analogWrite(Pin_B, b);
@@ -90,40 +93,61 @@ void RGBwhite(int bright)
 void RGBfadein (int delay_f,int r, int g, int b)
 //|Delay(gschwindikeit)| Endwert|R|G|B|
 {
-  int PWM_R = 0;
-  int PWM_G = 0;
-  int PWM_B = 0;
-
-  int is_r = 0;
-  int is_g = 0;
-  int is_b = 0;
-
-  while((PWM_R < r)||(PWM_G < g)||(PWM_B < b))
+  if((PWM_R < r)||(PWM_G < g)||(PWM_B < b))
   {
-    if(PWM_R < r)
-    {
-      PWM_R++;
-      analogWrite(Pin_R, PWM_R);
-    }
-    if(PWM_G < g)
-    {
-      PWM_G++;
-      analogWrite(Pin_G, PWM_G);
-    }
-    if(PWM_B < b)
-    {
-      PWM_B++;
-      analogWrite(Pin_B, PWM_B);
-    }
-    delay(delay_f);
+    while((PWM_R < r)||(PWM_G < g)||(PWM_B < b))
+     {
+      if(PWM_R < r)
+      {
+        PWM_R++;
+        analogWrite(Pin_R, PWM_R);
+      }
+      if(PWM_G < g)
+      {
+        PWM_G++;
+        analogWrite(Pin_G, PWM_G);
+      }
+      if(PWM_B < b)
+      {
+        PWM_B++;
+        analogWrite(Pin_B, PWM_B);
+      }
+     delay(delay_f);
+     }
+  }
+}
+
+void RGBfadeout (int delay_f,int r, int g, int b)
+//|Delay(gschwindikeit)| Endwert|R|G|B|
+{
+  if((PWM_R > r)||(PWM_G > g)||(PWM_B > b))
+  {
+    while((PWM_R > r)||(PWM_G > g)||(PWM_B > b))
+     {
+      if(PWM_R > r)
+      {
+        PWM_R--;
+        analogWrite(Pin_R, PWM_R);
+      }
+      if(PWM_G > g)
+      {
+        PWM_G--;
+        analogWrite(Pin_G, PWM_G);
+      }
+      if(PWM_B > b)
+      {
+        PWM_B--;
+        analogWrite(Pin_B, PWM_B);
+      }
+     delay(delay_f);
+     }
   }
 }
 
 void loop() 
 {
-RGBfade(10,255);
-delay(5000);
-RGBwhite(255);
-delay(2000);
-
+RGBset(0,0,255);
+delay(1000);
+RGBfadeout(10,0,0,2);
+delay(1000);
 }
