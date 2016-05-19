@@ -41,9 +41,9 @@ void RGBset(int r, int g, int b)
   PWM_R = r;
   PWM_G = g;
   PWM_B = b;
-  analogWrite(Pin_R, r);
-  analogWrite(Pin_G, g);
-  analogWrite(Pin_B, b);
+  analogWrite(Pin_R, PWM_R);
+  analogWrite(Pin_G, PWM_G);
+  analogWrite(Pin_B, PWM_B);
 }
 
 void RGBfade(int delay_f, int bright)
@@ -148,23 +148,49 @@ void RGBfadeout (int delay_f,int r, int g, int b)
 }
 
 int tast(int nummer)
+//
 {
-  static int rueck = 0;
-  if (nummer == 1)
+  static int rueck=0;
+  if(nummer == 1)
   {
-    rueck=0;
+    rueck=! digitalRead(Pin_T1);
   }
+  if(nummer == 2)
+  {
+    rueck=! digitalRead(Pin_T2);
+  }
+  if(nummer == 3)
+  {
+    rueck=! digitalRead(Pin_T3);
+  }
+  if(nummer == 4)
+  {
+    rueck=! digitalRead(Pin_T4);
+  }
+  return rueck;
 }
 
 void loop() 
 {
-if(!digitalRead(Pin_T2))
+
+if(tast(1))
 {
   RGBset(255,0,0);
 }
-else
+
+if(tast(2))
 {
-  RGBset (0,0,0);
+  RGBset(0,255,0);
 }
-delay(100);
+
+if(tast(3))
+{
+  RGBset(0,0,255);
+}
+if(tast(4))
+{
+  RGBwhite(255);
+}
+
+delay(10);
 }
