@@ -148,7 +148,7 @@ void RGBfadeout (int delay_f,int r, int g, int b)
 }
 
 int tast(int nummer)
-//
+//Abfrage ob Taster |Nummer| gedrückt
 {
   static int rueck=0;
   if(nummer == 1)
@@ -170,6 +170,16 @@ int tast(int nummer)
   return rueck;
 }
 
+void RGBoff()
+{
+  PWM_R = 0;
+  PWM_G = 0;
+  PWM_B = 0;
+  analogWrite(Pin_R, PWM_R);
+  analogWrite(Pin_G, PWM_G);
+  analogWrite(Pin_B, PWM_B);
+}
+
 void loop() 
 {
 
@@ -177,20 +187,9 @@ if(tast(1))
 {
   RGBset(255,0,0);
 }
-
-if(tast(2))
+else
 {
-  RGBset(0,255,0);
+  RGBoff();
 }
-
-if(tast(3))
-{
-  RGBset(0,0,255);
-}
-if(tast(4))
-{
-  RGBwhite(255);
-}
-
-delay(10);
+delay(100);
 }
