@@ -12,8 +12,8 @@
 float brightness_percent = 100; //0%-100%
 
 int white_offset_R = 100;
-int white_offset_G = 40;
-int white_offset_B = 10;
+int white_offset_G = 40; //40
+int white_offset_B = 10; //10
 
 //--------------------Initialisierung----------------
 int PWM_R = 0;
@@ -23,6 +23,9 @@ int brightness = 0;
 
 void setup() 
 {
+digitalWrite(Pin_R,HIGH);
+digitalWrite(Pin_G,HIGH);
+digitalWrite(Pin_B,HIGH);
 pinMode (Pin_G, OUTPUT);
 pinMode (Pin_R, OUTPUT);
 pinMode (Pin_B, OUTPUT);
@@ -32,6 +35,7 @@ pinMode (Pin_T3, INPUT_PULLUP);
 pinMode (Pin_T4, INPUT_PULLUP);
 
 brightness=brightness_percent*2.55;
+
 
 }
 
@@ -182,14 +186,8 @@ void RGBoff()
 
 void loop() 
 {
-
-if(tast(1))
-{
-  RGBset(255,0,0);
-}
-else
-{
-  RGBoff();
-}
-delay(100);
+RGBfade(1,255);
+//RGBwhite(255);
+//RGBset(255,255,0);
+delay(000);
 }
