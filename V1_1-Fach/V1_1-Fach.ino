@@ -122,9 +122,9 @@ void RGBfadein (int delay_f,int r, int g, int b)
 
 void loop() 
 {
-RGBfade(10,255);
-delay(5000);
-RGBwhite(255);
-delay(2000);
+RGBfade(10,brightness);
+
+RGBwhite(brightness);
+delay(4000);
 
 }
